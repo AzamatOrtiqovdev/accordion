@@ -1,12 +1,15 @@
-import { useState } from "react";
+export default function AccordionItems({ title, number, curOpen, onOpen, children }) {
 
-export default function AccordionItems({ title, text, number }) {
-  const [isOpen, setIsOPen] = useState(false);
+  const isOpen = number === curOpen;
+
+  function hundleToogle() {
+    onOpen(isOpen ? null : number);
+  }
 
   return (
     <div
       className={`item ${isOpen ? "open" : ""}`}
-      onClick={() => setIsOPen(!isOpen)}
+      onClick={hundleToogle}
     >
       <p className="number">{number < 10 ? `0${number + 1}` : number + 1}</p>
       <p className="title">{title}</p>
@@ -14,7 +17,7 @@ export default function AccordionItems({ title, text, number }) {
 
       {isOpen && (
         <div className="content-box">
-          <p>{text}</p>
+          <p>{children}</p>
         </div>
       )}
     </div>
